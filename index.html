@@ -15,14 +15,26 @@
             height: 100vh;
             margin: 0;
         }
-        .scroll-container {
+        .container {
             width: 80%;
             height: 80vh;
-            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             background-color: rgba(255, 255, 255, 0.5);
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .fixed-text {
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        .scroll-container {
+            width: 100%;
+            height: calc(100% - 60px);
+            overflow-y: scroll;
         }
         .scroll-container::-webkit-scrollbar {
             width: 12px;
@@ -52,20 +64,34 @@
     </style>
 </head>
 <body>
-    <div class="scroll-container">
-        <div class="content">dear 青青：</div>
-        <div class="content"> ❤️for you❤️</div>
-        <div class="content">
-            <script>
-                for (let i = 1; i <= 1314; i++) {
-                    if (i === 520) {
-                        document.write(`<p>❤️ 520 我爱你</p>`);
-                    } else {
-                        document.write(`<p>❤️ ${i} 我想你</p>`);
+    <div class="container">
+        <div class="fixed-text">dear 青青：</div>
+        <div class="fixed-text">❤️for you❤️</div>
+        <div class="scroll-container" id="scrollContainer">
+            <div class="content">
+                <script>
+                    for (let i = 1; i <= 1314; i++) {
+                        if (i === 520) {
+                            document.write(`<p>❤️ 520 我爱你</p>`);
+                        } else {
+                            document.write(`<p>❤️ ${i} 我想你</p>`);
+                        }
                     }
-                }
-            </script>
+                </script>
+            </div>
         </div>
     </div>
+
+    <script>
+        function autoScroll() {
+            const container = document.getElementById('scrollContainer');
+            container.scrollTop += 1;
+            if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+                container.scrollTop = 0;
+            }
+        }
+
+        setInterval(autoScroll, 50);
+    </script>
 </body>
 </html>
